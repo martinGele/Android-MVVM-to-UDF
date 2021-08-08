@@ -16,7 +16,6 @@ import com.martin.samplecompose.data.remote.models.PokedexListEntry
 class PokemonAdapter(private val onClick: (PokedexListEntry) -> Unit) :
     ListAdapter<PokedexListEntry, PokemonAdapter.PokemonViewHolder>(FlowerDiffCallback) {
 
-    /* ViewHolder for Pokemon list entry, takes in the inflated view and the onClick behavior. */
     class PokemonViewHolder(itemView: View, val onClick: (PokedexListEntry) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
 
@@ -36,7 +35,6 @@ class PokemonAdapter(private val onClick: (PokedexListEntry) -> Unit) :
             currentPokemon = pokemon
             pokemonImageView.load(pokemon.imageUrl)
             pokemonNameTextView.text = pokemon.pokemonName
-
 
         }
     }

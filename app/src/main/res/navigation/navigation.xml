@@ -20,7 +20,7 @@
         android:label="detail_pokemon_fragment"
         tools:layout="@layout/detail_pokemon_fragment" >
         <argument
-            android:name="Pokemon"
-            app:argType="com.martin.samplecompose.data.remote.models.PokedexListEntry" />
+            android:name="pokemonName"
+            app:argType="string" />
     </fragment>
 </navigation>

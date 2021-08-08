@@ -10,7 +10,6 @@ import com.martin.samplecompose.repository.PokemonRepository
 import com.martin.samplecompose.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -40,7 +39,7 @@ class ListPokemonViewModel @Inject constructor(private val repository: PokemonRe
                         val url =
                             "$RAW_URL${number}$PNG"
                         PokedexListEntry(
-                            entry.name.capitalize(Locale.ROOT),
+                            entry.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                             url,
                             number.toInt()
                         )
