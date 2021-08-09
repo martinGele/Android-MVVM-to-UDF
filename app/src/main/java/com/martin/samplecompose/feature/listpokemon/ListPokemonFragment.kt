@@ -42,7 +42,8 @@ class ListPokemonFragment : Fragment(R.layout.list_pokemons_fragment) {
     }
 
     private fun adapterOnClick(pokemon: PokedexListEntry) {
-        val action =   ListPokemonFragmentDirections.actionListPokemonFragmentToDetailPokemonFragment(pokemon.pokemonName)
+        val action =
+            ListPokemonFragmentDirections.actionListPokemonFragmentToDetailPokemonFragment(pokemon.pokemonName)
         view?.findNavController()?.navigate(action)
     }
 

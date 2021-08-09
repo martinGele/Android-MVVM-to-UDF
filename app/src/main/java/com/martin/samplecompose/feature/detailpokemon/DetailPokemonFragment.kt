@@ -24,7 +24,7 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
         val pokemonDetailImage: ImageView = view.findViewById(R.id.iv_pokemon_detail)
         val pokemonNameTextView: TextView = view.findViewById(R.id.tv_pokemon_name)
         viewModel.loadSinglePokemon(pokemonName = args.pokemonName.lowercase())
-        viewModel.getSinglePokemon().observe(viewLifecycleOwner, {pokemon->
+        viewModel.getSinglePokemon().observe(viewLifecycleOwner, { pokemon ->
             when (pokemon) {
                 is Resource.Success -> {
                     if (pokemon.data != null) {

@@ -9,7 +9,7 @@
         android:id="@+id/listPokemonFragment"
         android:name="com.martin.samplecompose.feature.listpokemon.ListPokemonFragment"
         android:label="list_pokemons_fragment"
-        tools:layout="@layout/list_pokemons_fragment" >
+        tools:layout="@layout/list_pokemons_fragment">
         <action
             android:id="@+id/action_listPokemonFragment_to_detailPokemonFragment"
             app:destination="@id/detailPokemonFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/detailPokemonFragment"
         android:name="com.martin.samplecompose.feature.detailpokemon.DetailPokemonFragment"
         android:label="detail_pokemon_fragment"
-        tools:layout="@layout/detail_pokemon_fragment" >
+        tools:layout="@layout/detail_pokemon_fragment">
         <argument
             android:name="pokemonName"
             app:argType="string" />

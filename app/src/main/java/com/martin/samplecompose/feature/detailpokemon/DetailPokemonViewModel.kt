@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailPokemonViewModel @Inject constructor(private val repository: PokemonRepository) : ViewModel() {
+class DetailPokemonViewModel @Inject constructor(private val repository: PokemonRepository) :
+    ViewModel() {
 
     private var singlePokemon = MutableLiveData<Resource<Pokemon>>()
     fun getSinglePokemon(): LiveData<Resource<Pokemon>> = singlePokemon
@@ -32,5 +33,6 @@ class DetailPokemonViewModel @Inject constructor(private val repository: Pokemon
 
         }
     }
+
 
 }

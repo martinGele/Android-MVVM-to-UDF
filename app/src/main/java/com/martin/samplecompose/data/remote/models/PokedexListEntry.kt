@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class PokedexListEntry(
-    val pokemonName:String,
+    val pokemonName: String,
     val imageUrl: String,
-    val number:Int
+    val number: Int
 
-):Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
