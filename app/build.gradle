@@ -32,9 +32,15 @@ android {
         jvmTarget = '1.8'
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion = '1.0.1'
         kotlinCompilerVersion '1.5.10'
     }
+    buildFeatures {
+        compose = true
+    }
+
+
+
 }
 
 dependencies {
@@ -60,7 +66,7 @@ dependencies {
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha05"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
 
 

@@ -2,4 +2,7 @@
     <string name="app_name">SampleCompose</string>
     <string name="pokemon_image">pokemon_image</string>
     <string name="pokemon_name">pokemon name</string>
+    <string name="abilities">abilities</string>
+    <string name="name">name</string>
+    <string name="moves">moves</string>
 </resources>

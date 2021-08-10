@@ -1,4 +1,4 @@
-package com.martin.catchemall.data.remote.response
+package com.martin.samplecompose.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName

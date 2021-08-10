@@ -2,10 +2,7 @@ package com.martin.catchemall.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
-import com.martin.samplecompose.data.remote.response.Ability
-import com.martin.samplecompose.data.remote.response.Species
-import com.martin.samplecompose.data.remote.response.Sprites
-import com.martin.samplecompose.data.remote.response.Type
+import com.martin.samplecompose.data.remote.response.*
 
 data class Pokemon(
     @SerializedName("abilities")
