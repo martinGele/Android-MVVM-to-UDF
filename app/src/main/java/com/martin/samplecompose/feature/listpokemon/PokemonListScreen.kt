@@ -1,9 +1,5 @@
 package com.martin.samplecompose.feature.listpokemon
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,7 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,47 +18,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
-import dagger.hilt.android.AndroidEntryPoint
-
-@AndroidEntryPoint
-class ListPokemonFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = ComposeView(requireContext())
-        view.apply {
-            setContent {
-                val navController = findNavController()
-                PokemonHomeContent(navController)
-            }
-        }
-        return view
-    }
-
-}
 
 @Composable
-fun PokemonHomeContent(
+fun PokemonListScreen(
     navController: NavController,
     viewModel: ListPokemonViewModel = hiltViewModel()
 ) {
     viewModel.loadPokemonList()
     val pokemonList by remember { viewModel.pokemonList }
-
-
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -89,11 +59,10 @@ fun PokemonListItem(
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
     ) {
         Row(Modifier.clickable {
-            val action =
-                ListPokemonFragmentDirections.actionListPokemonFragmentToDetailPokemonFragment(
-                    pokemon.pokemonName
-                )
-            navController.navigate(action)
+
+            navController.navigate(
+                "pokemon_detail_screen/${pokemon.pokemonName}"
+            )
         }) {
             PokemonImage(pokemon)
             Column(
@@ -102,7 +71,7 @@ fun PokemonListItem(
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = pokemon.pokemonName, style = typography.h6)
+                Text(text = pokemon.pokemonName, style = MaterialTheme.typography.h6)
             }
         }
     }

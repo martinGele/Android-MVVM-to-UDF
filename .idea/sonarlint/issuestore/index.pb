@@ -118,14 +118,10 @@ A
 Lapp/src/androidTest/java/com/martin/samplecompose/ExampleInstrumentedTest.kt,2\8\28dc30ee4fbc7389404d0f750629454dfd4df0d8
 Å
 Qapp/src/main/java/com/martin/samplecompose/data/remote/models/PokedexListEntry.kt,2\0\20f36780a15bf2e21c01f7a7af48eb6d039ec475
-l
-<app/src/main/java/com/martin/samplecompose/ui/theme/Theme.kt,2\7\27343af20680aff89afa4f0f11ab7dbcc31ede00
 w
 Gapp/src/main/java/com/martin/samplecompose/data/remote/response/Type.kt,5\e\5e0e9874468d6adc32c8cff79576aaa3916f394c
 Ä
 Papp/src/main/java/com/martin/samplecompose/data/remote/response/VersionDetail.kt,c\b\cb17e736230989fa6f336c4261f3dc4e146edd20
-j
-:app/src/main/java/com/martin/samplecompose/MainActivity.kt,4\0\40e92db7f9224d9f29026b6dba6798ad567d97af
 m
 =app/src/test/java/com/martin/samplecompose/ExampleUnitTest.kt,6\1\619c34753f4b3a8eb644da033eea413563bd3031
 z

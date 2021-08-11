@@ -1,9 +1,5 @@
 package com.martin.samplecompose.feature.detailpokemon
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -15,43 +11,19 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.fragment.navArgs
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.catchemall.data.remote.response.Pokemon
 import com.martin.samplecompose.R
 import com.martin.samplecompose.util.Resource
-import dagger.hilt.android.AndroidEntryPoint
-
-@AndroidEntryPoint
-class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
-
-    private val args: DetailPokemonFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = ComposeView(requireContext())
-        view.apply {
-            setContent {
-                ProfileScreen(pokemonName = args.pokemonName)
-            }
-            return view
-        }
-    }
-}
 
 @Composable
-fun ProfileScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
+fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
 
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
