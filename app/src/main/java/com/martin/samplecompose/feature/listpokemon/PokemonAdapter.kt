@@ -1,30 +1,27 @@
 package com.martin.samplecompose.feature.listpokemon
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.martin.samplecompose.R
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
-
+import com.martin.samplecompose.databinding.PokemonItemBinding
 
 class PokemonAdapter(private val onClick: (PokedexListEntry) -> Unit) :
     ListAdapter<PokedexListEntry, PokemonAdapter.PokemonViewHolder>(FlowerDiffCallback) {
 
-    class PokemonViewHolder(itemView: View, val onClick: (PokedexListEntry) -> Unit) :
-        RecyclerView.ViewHolder(itemView) {
+    class PokemonViewHolder(
+        private val binding: PokemonItemBinding,
+        val onClick: (PokedexListEntry) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private val pokemonNameTextView: TextView = itemView.findViewById(R.id.tv_name)
-        private val pokemonImageView: ImageView = itemView.findViewById(R.id.iv_pokemon)
         private var currentPokemon: PokedexListEntry? = null
 
         init {
-            itemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 currentPokemon?.let {
                     onClick(it)
                 }
@@ -33,15 +30,16 @@ class PokemonAdapter(private val onClick: (PokedexListEntry) -> Unit) :
 
         fun bind(pokemon: PokedexListEntry) {
             currentPokemon = pokemon
-            pokemonImageView.load(pokemon.imageUrl)
-            pokemonNameTextView.text = pokemon.pokemonName
+            binding.apply {
+                ivPokemon.load(pokemon.imageUrl)
+                tvName.text = pokemon.pokemonName
+            }
 
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.pokemon_item, parent, false)
+        val view = PokemonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PokemonViewHolder(view, onClick)
     }
 
