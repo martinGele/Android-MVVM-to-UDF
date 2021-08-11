@@ -46,7 +46,8 @@ class ListPokemonViewModel @Inject constructor(private val repository: PokemonRe
                     }
                     pokemonList.value = Resource.Success(pokemonEntries)
                 }
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 pokemonList.value = Resource.Error(e.toString())
             }
 
