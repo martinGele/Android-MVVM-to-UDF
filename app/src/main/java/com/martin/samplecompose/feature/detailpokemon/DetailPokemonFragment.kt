@@ -27,6 +27,8 @@ import androidx.navigation.fragment.navArgs
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.catchemall.data.remote.response.Pokemon
 import com.martin.samplecompose.R
+import com.martin.samplecompose.ui.CircularProgressBar
+import com.martin.samplecompose.ui.ErrorScreen
 import com.martin.samplecompose.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,11 +68,11 @@ fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel =
 
         }
         is Resource.Loading -> {
-//            CircularProgressBar()
+            CircularProgressBar()
         }
 
         is Resource.Error -> {
-//            ErrorScreen()
+            ErrorScreen()
         }
     }
 

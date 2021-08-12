@@ -25,7 +25,7 @@ class ListPokemonViewModel @Inject constructor(private val repository: PokemonRe
     }
 
     fun dataMapIndexed(results: List<Result>): List<PokedexListEntry> {
-        return results.mapIndexed { index, entry ->
+        return results.mapIndexed { _, entry ->
             val number = if (entry.url.endsWith("/")) {
                 entry.url.dropLast(1).takeLastWhile { it.isDigit() }
             } else {

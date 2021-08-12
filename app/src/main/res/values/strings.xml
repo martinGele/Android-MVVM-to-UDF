@@ -5,4 +5,5 @@
     <string name="abilities">abilities</string>
     <string name="name">name</string>
     <string name="moves">moves</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 </resources>
