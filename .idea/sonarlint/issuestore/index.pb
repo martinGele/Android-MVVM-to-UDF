@@ -93,8 +93,6 @@ Uapp/src/main/java/com/martin/samplecompose/data/remote/response/VersionGroupDet
 Vapp/src/main/java/com/martin/samplecompose/data/remote/response/HeartgoldSoulsilver.kt,b\7\b7c82d241cf9bae4c3d65aee231b569104903fd6
 â
 Yapp/src/main/java/com/martin/samplecompose/data/remote/response/OmegarubyAlphasapphire.kt,d\7\d70b2d58bb1495f4eb3405c20ad8d429a60c35a3
-o
-?app/src/main/java/com/martin/samplecompose/SampleApplication.kt,6\7\676a51d67abc253ea8d6b5abe8aefe8f38697ec1
 >
 app/.gitignore,5\1\51e1c5d383dfaa35e0e7e5873a0a99355a86880f
 F
@@ -114,13 +112,9 @@ A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
 |
 Lapp/src/androidTest/java/com/martin/samplecompose/ExampleInstrumentedTest.kt,2\8\28dc30ee4fbc7389404d0f750629454dfd4df0d8
-Å
-Qapp/src/main/java/com/martin/samplecompose/data/remote/models/PokedexListEntry.kt,2\0\20f36780a15bf2e21c01f7a7af48eb6d039ec475
 w
 Gapp/src/main/java/com/martin/samplecompose/data/remote/response/Type.kt,5\e\5e0e9874468d6adc32c8cff79576aaa3916f394c
 Ä
 Papp/src/main/java/com/martin/samplecompose/data/remote/response/VersionDetail.kt,c\b\cb17e736230989fa6f336c4261f3dc4e146edd20
 m
 =app/src/test/java/com/martin/samplecompose/ExampleUnitTest.kt,6\1\619c34753f4b3a8eb644da033eea413563bd3031
-z
-Japp/src/main/java/com/martin/samplecompose/repository/PokemonRepository.kt,1\a\1a28e5e897ad31d92162214151cd7e31f9acd628
