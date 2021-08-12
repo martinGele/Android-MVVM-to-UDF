@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.catchemall.data.remote.response.PokemonList
 import com.martin.catchemall.data.remote.response.Result
+import com.martin.samplecompose.R
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
 import com.martin.samplecompose.ui.CircularProgressBar
 import com.martin.samplecompose.ui.ErrorScreen
@@ -111,8 +112,8 @@ private fun PokemonImage(pokemon: PokedexListEntry) {
     Image(
         painter = rememberCoilPainter(
             request = pokemon.imageUrl,
-
-            ),
+            previewPlaceholder = R.drawable.image_placeholder
+        ),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier
