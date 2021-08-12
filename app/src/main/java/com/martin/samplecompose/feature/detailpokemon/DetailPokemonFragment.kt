@@ -43,7 +43,7 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
         val view = ComposeView(requireContext())
         view.apply {
             setContent {
-                ProfileScreen(pokemonName = args.pokemonName)
+                PokemonDetailScreen(pokemonName = args.pokemonName)
             }
             return view
         }
@@ -51,7 +51,7 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
 }
 
 @Composable
-fun ProfileScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
+fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
 
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
@@ -60,36 +60,47 @@ fun ProfileScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltV
 
     when (pokemonInfo) {
         is Resource.Success -> {
-            Column(modifier = Modifier.fillMaxSize()) {
-                BoxWithConstraints(modifier = Modifier.weight(1f)) {
-                    Surface {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .verticalScroll(scrollState),
-                        ) {
-                            pokemonInfo.data?.let {
-                                ProfileHeader(
-                                    scrollState = scrollState,
-                                    pokemon = it,
-                                    containerHeight = this@BoxWithConstraints.maxHeight
-                                )
-                            }
-                            pokemonInfo.data?.let {
-                                ProfileContent(pokemon = it, this@BoxWithConstraints.maxHeight)
-                            }
-                        }
-                    }
-                }
+            if (pokemonInfo.data != null) {
+                DetailScreen(scrollState, pokemonInfo.data)
             }
+
+        }
+        is Resource.Loading -> {
+//            CircularProgressBar()
         }
 
+        is Resource.Error -> {
+//            ErrorScreen()
+        }
     }
 
 }
 
 @Composable
-private fun ProfileHeader(
+private fun DetailScreen(scrollState: ScrollState, data: Pokemon) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        BoxWithConstraints(modifier = Modifier.weight(1f)) {
+            Surface {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState),
+                ) {
+                    DetailHeader(
+                        scrollState = scrollState,
+                        pokemon = data,
+                        containerHeight = this@BoxWithConstraints.maxHeight
+                    )
+                    DetailContent(pokemon = data, this@BoxWithConstraints.maxHeight)
+                }
+
+            }
+        }
+    }
+}
+
+@Composable
+private fun DetailHeader(
     scrollState: ScrollState,
     pokemon: Pokemon,
     containerHeight: Dp
@@ -101,18 +112,20 @@ private fun ProfileHeader(
         modifier = Modifier
             .heightIn(max = containerHeight / 2)
             .fillMaxWidth()
-            .padding(top = offsetDp),
+            .padding(top = offsetDp)
+        ,
         painter = rememberCoilPainter(
             request = pokemon.sprites.frontShiny,
-
-            ),
+            previewPlaceholder = R.drawable.image_placeholder
+        ),
         contentScale = ContentScale.Crop,
-        contentDescription = null
-    )
+        contentDescription = null,
+
+        )
 }
 
 @Composable
-private fun ProfileContent(pokemon: Pokemon, containerHeight: Dp) {
+private fun DetailContent(pokemon: Pokemon, containerHeight: Dp) {
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         Name(pokemon)
@@ -168,4 +181,3 @@ fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
         )
     }
 }
-

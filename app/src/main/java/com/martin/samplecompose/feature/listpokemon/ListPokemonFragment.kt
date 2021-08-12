@@ -12,11 +12,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,7 +30,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.accompanist.coil.rememberCoilPainter
+import com.martin.catchemall.data.remote.response.PokemonList
+import com.martin.catchemall.data.remote.response.Result
+import com.martin.samplecompose.R
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
+import com.martin.samplecompose.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +49,7 @@ class ListPokemonFragment : Fragment() {
         view.apply {
             setContent {
                 val navController = findNavController()
-                PokemonHomeContent(navController)
+                PokemonListScreen(navController)
             }
         }
         return view
@@ -55,19 +58,42 @@ class ListPokemonFragment : Fragment() {
 }
 
 @Composable
-fun PokemonHomeContent(
+fun PokemonListScreen(
     navController: NavController,
     viewModel: ListPokemonViewModel = hiltViewModel()
 ) {
-    viewModel.loadPokemonList()
-    val pokemonList by remember { viewModel.pokemonList }
+    val pokemonList = produceState<Resource<PokemonList>>(initialValue = Resource.Loading()) {
+        value = viewModel.loadPokemonList()
+    }.value
 
+    when (pokemonList) {
+        is Resource.Success -> {
+            if (pokemonList.data?.results != null) {
+                ListPokemon(viewModel, navController, pokemonList.data.results)
+            }
+        }
+        is Resource.Loading -> {
+//            CircularProgressBar()
 
+        }
+        is Resource.Error -> {
+//            ErrorScreen()
+        }
+
+    }
+}
+
+@Composable
+fun ListPokemon(
+    viewModel: ListPokemonViewModel,
+    navController: NavController,
+    results: List<Result>
+) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         items(
-            items = pokemonList,
+            items = viewModel.dataMapIndexed(results),
             itemContent = {
                 PokemonListItem(pokemon = it, navController = navController)
             }
@@ -102,7 +128,7 @@ fun PokemonListItem(
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = pokemon.pokemonName, style = typography.h6)
+                Text(text = pokemon.pokemonName, style = MaterialTheme.typography.h6)
             }
         }
     }
@@ -113,8 +139,9 @@ private fun PokemonImage(pokemon: PokedexListEntry) {
     Image(
         painter = rememberCoilPainter(
             request = pokemon.imageUrl,
+            previewPlaceholder = R.drawable.image_placeholder
 
-            ),
+        ),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier

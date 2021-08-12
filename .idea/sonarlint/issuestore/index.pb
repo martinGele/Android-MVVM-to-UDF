@@ -105,9 +105,6 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 ;
 gradlew.bat,2\a\2a45a911a8f1836b0b6c5b758962572012d8f8c3
 ?
@@ -130,3 +127,14 @@ m
 =app/src/test/java/com/martin/samplecompose/ExampleUnitTest.kt,6\1\619c34753f4b3a8eb644da033eea413563bd3031
 z
 Japp/src/main/java/com/martin/samplecompose/repository/PokemonRepository.kt,1\a\1a28e5e897ad31d92162214151cd7e31f9acd628
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+j
+:app/src/main/java/com/martin/samplecompose/di/AppModule.kt,f\4\f4df72becaa06bb682d5d80aaf8cdbd1f3d74225
+l
+<app/src/main/java/com/martin/samplecompose/ui/theme/Color.kt,c\5\c53bd5b3dd8d059cf19be97fb27d9d518ce2bd09
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
