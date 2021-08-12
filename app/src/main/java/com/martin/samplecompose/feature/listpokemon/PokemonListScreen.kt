@@ -11,8 +11,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,20 +23,50 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.coil.rememberCoilPainter
+import com.martin.catchemall.data.remote.response.PokemonList
+import com.martin.catchemall.data.remote.response.Result
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
+import com.martin.samplecompose.ui.CircularProgressBar
+import com.martin.samplecompose.ui.ErrorScreen
+import com.martin.samplecompose.util.Resource
 
 @Composable
 fun PokemonListScreen(
     navController: NavController,
     viewModel: ListPokemonViewModel = hiltViewModel()
 ) {
-    viewModel.loadPokemonList()
-    val pokemonList by remember { viewModel.pokemonList }
+    val pokemonList = produceState<Resource<PokemonList>>(initialValue = Resource.Loading()) {
+        value = viewModel.loadPokemonList()
+    }.value
+
+    when (pokemonList) {
+        is Resource.Success -> {
+            if (pokemonList.data?.results != null) {
+                ListPokemon(viewModel, navController, pokemonList.data.results)
+            }
+        }
+        is Resource.Loading -> {
+            CircularProgressBar()
+
+        }
+        is Resource.Error -> {
+            ErrorScreen()
+        }
+
+    }
+}
+
+@Composable
+fun ListPokemon(
+    viewModel: ListPokemonViewModel,
+    navController: NavController,
+    results: List<Result>
+) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         items(
-            items = pokemonList,
+            items = viewModel.dataMapIndexed(results),
             itemContent = {
                 PokemonListItem(pokemon = it, navController = navController)
             }

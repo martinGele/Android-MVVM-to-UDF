@@ -61,8 +61,6 @@ Mapp/src/main/java/com/martin/samplecompose/data/remote/response/DreamWorld.kt,
 Napp/src/main/java/com/martin/samplecompose/data/remote/response/GenerationI.kt,e\8\e84f97f66b7c5f5bd9e52d63c88035ee5a303879
 ~
 Napp/src/main/java/com/martin/samplecompose/data/remote/response/GenerationV.kt,6\e\6e2e6994d9d2c50494beaacd381b8dfe12467163
-~
-Napp/src/main/java/com/martin/samplecompose/data/remote/response/PokemonList.kt,4\1\419d3bc6c96413aab84eb3291926372919e01a6f
 
 Oapp/src/main/java/com/martin/samplecompose/data/remote/response/DiamondPearl.kt,9\9\99a31a97dd3bdd76938cb3eac0f843e206ff4642
 

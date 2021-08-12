@@ -20,6 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.catchemall.data.remote.response.Pokemon
 import com.martin.samplecompose.R
+import com.martin.samplecompose.ui.CircularProgressBar
+import com.martin.samplecompose.ui.ErrorScreen
 import com.martin.samplecompose.util.Resource
 
 @Composable
@@ -55,7 +57,13 @@ fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel =
                 }
             }
         }
+        is Resource.Loading -> {
+            CircularProgressBar()
+        }
 
+        is Resource.Error -> {
+            ErrorScreen()
+        }
     }
 
 }
