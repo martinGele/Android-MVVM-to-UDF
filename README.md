@@ -2,15 +2,18 @@
 
 The example of this application is cut in three parts which are switched thru branches(master, initial_refactoring_to_compose, fully_refactoring_to_compose). 
 
-## first branch **master**
+## first branch 
+> master
 
 On the **master** branch the initial state of the application is presented with MVMM architecture and with the use of Hilt, Retrofit, JetpackNavigation.
 
-## second branch **refactoring_compose**
+## second branch 
+> refactoring_compose
 
 The second branch is **initial_refactoring_to_compose** here used cases like Fragments and JetpackNavigation with navigation graph are still in use only the layouts are not in use for the fragment as they are replaced with composable.
 
-## third branch **fully_refactoring_to_compose**
+## third branch 
+> fully_refactoring_to_compose
 
 And the last branch **fully_refactoring_to_compose** Fragments are no longer in use they are replaced with composable and the navigation with navigation graph is no longer in use.
 
