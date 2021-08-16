@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cardview_corner_radius">16dp</dimen>
-    <dimen name="cardview_margin_defult">5dp</dimen>
+    <dimen name="cardview_margin_default">16dp</dimen>
+    <dimen name="cardview_margin_up_down">8dp</dimen>
 </resources>
