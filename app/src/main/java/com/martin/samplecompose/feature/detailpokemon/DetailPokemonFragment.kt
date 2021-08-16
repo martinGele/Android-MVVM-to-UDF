@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -118,8 +117,7 @@ private fun DetailHeader(
         modifier = Modifier
             .heightIn(max = containerHeight / 2)
             .fillMaxWidth()
-            .padding(top = offsetDp)
-        ,
+            .padding(top = offsetDp),
         painter = rememberCoilPainter(
             request = pokemon.sprites.frontShiny,
             previewPlaceholder = R.drawable.image_placeholder
