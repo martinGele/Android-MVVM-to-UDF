@@ -15,7 +15,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +31,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.accompanist.coil.rememberCoilPainter
-import com.martin.catchemall.data.remote.response.PokemonList
 import com.martin.catchemall.data.remote.response.Result
 import com.martin.samplecompose.R
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
@@ -64,19 +64,21 @@ fun PokemonListScreen(
     navController: NavController,
     viewModel: ListPokemonViewModel = hiltViewModel()
 ) {
-    val pokemonList = produceState<Resource<PokemonList>>(initialValue = Resource.Loading()) {
-        value = viewModel.loadPokemonList()
-    }.value
+
+    viewModel.loadPokemonList()
+    /**
+     * here we are converting LiveData to State through observeAsState
+     */
+    val pokemonList by viewModel.getPokemonList().observeAsState(initial = Resource.Loading())
 
     when (pokemonList) {
         is Resource.Success -> {
-            if (pokemonList.data?.results != null) {
-                ListPokemon(viewModel, navController, pokemonList.data.results)
+            if (!pokemonList.data?.results.isNullOrEmpty()) {
+                ListPokemon(viewModel, navController, pokemonList.data!!.results)
             }
         }
         is Resource.Loading -> {
             CircularProgressBar()
-
         }
         is Resource.Error -> {
             ErrorScreen()

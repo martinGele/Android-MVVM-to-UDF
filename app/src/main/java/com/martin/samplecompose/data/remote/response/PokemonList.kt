@@ -1,7 +1,8 @@
-package com.martin.catchemall.data.remote.response
+package com.martin.samplecompose.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
+import com.martin.catchemall.data.remote.response.Result
 
 data class PokemonList(
     @SerializedName("count")

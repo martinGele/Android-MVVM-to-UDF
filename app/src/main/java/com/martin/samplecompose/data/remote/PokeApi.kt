@@ -1,7 +1,7 @@
 package com.martin.samplecompose.data.remote
 
 import com.martin.catchemall.data.remote.response.Pokemon
-import com.martin.catchemall.data.remote.response.PokemonList
+import com.martin.samplecompose.data.remote.response.PokemonList
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

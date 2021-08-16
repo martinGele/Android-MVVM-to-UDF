@@ -1,7 +1,7 @@
 package com.martin.samplecompose.repository
 
 import com.martin.catchemall.data.remote.response.Pokemon
-import com.martin.catchemall.data.remote.response.PokemonList
+import com.martin.samplecompose.data.remote.response.PokemonList
 import com.martin.samplecompose.data.remote.PokeApi
 import com.martin.samplecompose.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped

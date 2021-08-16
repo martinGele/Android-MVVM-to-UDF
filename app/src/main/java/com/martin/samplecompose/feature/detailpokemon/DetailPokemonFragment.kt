@@ -12,6 +12,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -56,14 +58,16 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
 fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
 
-    val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
-        value = viewModel.getPokemonInfo(pokemonName.lowercase())
-    }.value
+    viewModel.loadSinglePokemon(pokemonName = pokemonName.lowercase())
+    /**
+     * here we are converting LiveData to State through observeAsState
+     */
+    val pokemonInfo by viewModel.getSinglePokemon().observeAsState(initial = Resource.Loading())
 
     when (pokemonInfo) {
         is Resource.Success -> {
             if (pokemonInfo.data != null) {
-                DetailScreen(scrollState, pokemonInfo.data)
+                DetailScreen(scrollState, pokemonInfo.data!!)
             }
 
         }

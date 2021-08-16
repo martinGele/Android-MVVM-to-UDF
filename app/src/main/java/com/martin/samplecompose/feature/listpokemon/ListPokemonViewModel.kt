@@ -1,14 +1,17 @@
 package com.martin.samplecompose.feature.listpokemon
 
-
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.martin.catchemall.data.remote.response.PokemonList
+import androidx.lifecycle.viewModelScope
+import com.martin.samplecompose.data.remote.response.PokemonList
 import com.martin.catchemall.data.remote.response.Result
 import com.martin.samplecompose.data.remote.PokeApi.Companion.PAGE_SIZE
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
 import com.martin.samplecompose.repository.PokemonRepository
 import com.martin.samplecompose.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -20,8 +23,19 @@ private const val PNG = ".png"
 class ListPokemonViewModel @Inject constructor(private val repository: PokemonRepository) :
     ViewModel() {
 
-    suspend fun loadPokemonList(): Resource<PokemonList> {
-        return repository.getPokemonList(PAGE_SIZE, PAGE_SIZE)
+    private var pokemonList = MutableLiveData<Resource<PokemonList>>()
+    fun getPokemonList(): LiveData<Resource<PokemonList>> = pokemonList
+
+    fun loadPokemonList() {
+        viewModelScope.launch {
+            try {
+                val result: Resource<PokemonList> = repository.getPokemonList(PAGE_SIZE, PAGE_SIZE)
+                pokemonList.value = result
+            }
+            catch (e: Exception) {
+                pokemonList.value = Resource.Error(e.toString())
+            }
+        }
     }
 
     fun dataMapIndexed(results: List<Result>): List<PokedexListEntry> {
