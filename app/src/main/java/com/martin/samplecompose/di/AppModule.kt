@@ -32,7 +32,6 @@ object AppModule {
             .create(PokeApi::class.java)
     }
 
-
     @Provides
     fun providesLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -49,6 +48,5 @@ object AppModule {
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
     }
-
 
 }
