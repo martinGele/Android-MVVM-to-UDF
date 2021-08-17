@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -61,7 +62,10 @@ fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel =
     /**
      * here we are converting LiveData to State through observeAsState
      */
-    val pokemonInfo by viewModel.getSinglePokemon().observeAsState(initial = Resource.Loading())
+    val pokemonInfoState = viewModel.getSinglePokemon().observeAsState(initial = Resource.Loading())
+    val pokemonInfo by remember {
+        pokemonInfoState
+    }
 
     when (pokemonInfo) {
         is Resource.Success -> {

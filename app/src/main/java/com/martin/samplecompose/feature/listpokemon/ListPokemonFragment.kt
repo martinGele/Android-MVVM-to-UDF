@@ -17,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -69,7 +70,10 @@ fun PokemonListScreen(
     /**
      * here we are converting LiveData to State through observeAsState
      */
-    val pokemonList by viewModel.getPokemonList().observeAsState(initial = Resource.Loading())
+    val pokemonListState = viewModel.getPokemonList().observeAsState(initial = Resource.Loading())
+    val pokemonList by remember {
+        pokemonListState
+    }
 
     when (pokemonList) {
         is Resource.Success -> {
