@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.martin.catchemall.data.remote.response.Result
 import com.martin.samplecompose.data.remote.PokeApi.Companion.PAGE_SIZE
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
 import com.martin.samplecompose.repository.PokemonRepository
@@ -30,28 +31,30 @@ class ListPokemonViewModel @Inject constructor(private val repository: PokemonRe
             try {
                 val result = repository.getPokemonList(PAGE_SIZE, PAGE_SIZE)
                 if (result.data != null) {
-                    val pokemonEntries = result.data.results.mapIndexed { index, entry ->
-                        val number = if (entry.url.endsWith("/")) {
-                            entry.url.dropLast(1).takeLastWhile { it.isDigit() }
-                        } else {
-                            entry.url.takeLastWhile { it.isDigit() }
-                        }
-                        val url =
-                            "$RAW_URL${number}$PNG"
-                        PokedexListEntry(
-                            entry.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
-                            url,
-                            number.toInt()
-                        )
-                    }
-                    pokemonList.value = Resource.Success(pokemonEntries)
+                    pokemonList.value = Resource.Success(pokemonEntries(result.data.results))
                 }
             }
             catch (e: Exception) {
                 pokemonList.value = Resource.Error(e.toString())
             }
-
         }
-
     }
+
+    private fun pokemonEntries(results: List<Result>): List<PokedexListEntry> {
+        return results.mapIndexed { _, entry ->
+            val number = if (entry.url.endsWith("/")) {
+                entry.url.dropLast(1).takeLastWhile { it.isDigit() }
+            } else {
+                entry.url.takeLastWhile { it.isDigit() }
+            }
+            val url =
+                "$RAW_URL${number}$PNG"
+            PokedexListEntry(
+                entry.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+                url,
+                number.toInt()
+            )
+        }
+    }
+
 }

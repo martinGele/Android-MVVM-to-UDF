@@ -1,7 +1,6 @@
 package com.martin.samplecompose.feature.listpokemon
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.martin.samplecompose.R
 import com.martin.samplecompose.data.remote.models.PokedexListEntry
 import com.martin.samplecompose.databinding.ListPokemonsFragmentBinding
 import com.martin.samplecompose.util.Resource
+import com.martin.samplecompose.util.setLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class ListPokemonFragment : Fragment(R.layout.list_pokemons_fragment) {
         val pokemonAdapter = PokemonAdapter { pokemon -> adapterOnClick(pokemon = pokemon) }
 
         binding.apply {
-            rvListPokemons.apply {
+            rvListPokemon.apply {
                 adapter = pokemonAdapter
             }
         }
@@ -43,12 +43,15 @@ class ListPokemonFragment : Fragment(R.layout.list_pokemons_fragment) {
             when (result) {
                 is Resource.Success -> {
                     pokemonAdapter.submitList(result.data)
+                    binding.pbListPokemon.setLoading(false)
                 }
                 is Resource.Error -> {
-                    Log.d("printError", result.message.toString())
+                    binding.pbListPokemon.setLoading(false)
+
                 }
                 is Resource.Loading -> {
-                    Log.d("Loading...", ".........")
+                    binding.pbListPokemon.setLoading(true)
+
                 }
             }
         })

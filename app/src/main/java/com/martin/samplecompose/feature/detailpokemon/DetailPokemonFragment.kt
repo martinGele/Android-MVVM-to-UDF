@@ -1,7 +1,6 @@
 package com.martin.samplecompose.feature.detailpokemon
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import coil.load
 import com.martin.samplecompose.R
 import com.martin.samplecompose.databinding.DetailPokemonFragmentBinding
 import com.martin.samplecompose.util.Resource
+import com.martin.samplecompose.util.setLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,15 +21,19 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
     private val viewModel: DetailPokemonViewModel by viewModels()
     private lateinit var binding: DetailPokemonFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DetailPokemonFragmentBinding.inflate(inflater,    container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DetailPokemonFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.loadSinglePokemon(pokemonName = args.pokemonName.lowercase())
-        viewModel.getSinglePokemon().observe(viewLifecycleOwner, {pokemon->
+        viewModel.getSinglePokemon().observe(viewLifecycleOwner, { pokemon ->
             when (pokemon) {
                 is Resource.Success -> {
                     if (pokemon.data != null) {
@@ -38,17 +42,18 @@ class DetailPokemonFragment : Fragment(R.layout.detail_pokemon_fragment) {
                             tvPokemonName.text = pokemon.data.species.name
                         }
                     }
+                    binding.pbDetail.setLoading(false)
                 }
                 is Resource.Error -> {
-                    Log.d("Error...", pokemon.message.toString())
+                    binding.pbDetail.setLoading(false)
                 }
                 is Resource.Loading -> {
-                    Log.d("Loading...", "...")
+                    binding.pbDetail.setLoading(true)
+
                 }
             }
         }
         )
-
 
     }
 }
