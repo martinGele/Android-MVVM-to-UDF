@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,14 +37,18 @@ fun PokemonListScreen(
     navController: NavController,
     viewModel: ListPokemonViewModel = hiltViewModel()
 ) {
-    val pokemonList = produceState<Resource<PokemonList>>(initialValue = Resource.Loading()) {
+    val pokemonListState = produceState<Resource<PokemonList>>(initialValue = Resource.Loading()) {
         value = viewModel.loadPokemonList()
-    }.value
+    }
+
+    val pokemonList by remember{
+        pokemonListState
+    }
 
     when (pokemonList) {
         is Resource.Success -> {
-            if (pokemonList.data?.results != null) {
-                ListPokemon(viewModel, navController, pokemonList.data.results)
+            if (pokemonList.data != null) {
+                ListPokemon(viewModel, navController, pokemonList.data!!.results)
             }
         }
         is Resource.Loading -> {

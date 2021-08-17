@@ -7,10 +7,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -26,14 +26,18 @@ import java.util.*
 @Composable
 fun PokemonDetailScreen(pokemonName: String, viewModel: DetailPokemonViewModel = hiltViewModel()) {
 
-    val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
+    val pokemonInfoState = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
         value = viewModel.getPokemonInfo(pokemonName.lowercase())
-    }.value
+    }
+
+    val pokemonInfo by remember{
+      pokemonInfoState
+    }
 
     when (pokemonInfo) {
         is Resource.Success -> {
             if (pokemonInfo.data != null) {
-                DetailScreen(pokemonInfo.data)
+                DetailScreen(pokemonInfo.data!!)
             }
         }
         is Resource.Loading -> {
