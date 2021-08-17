@@ -65,6 +65,9 @@ private fun DetailScreen(data: Pokemon) {
             }
         }
     }
+    Row(modifier = Modifier.fillMaxSize()) {
+
+    }
 }
 
 @Composable
