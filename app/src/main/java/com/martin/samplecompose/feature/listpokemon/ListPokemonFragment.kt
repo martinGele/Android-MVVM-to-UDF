@@ -26,10 +26,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.findNavController
 import com.google.accompanist.coil.rememberCoilPainter
 import com.martin.catchemall.data.remote.response.Result
@@ -59,6 +61,7 @@ class ListPokemonFragment : Fragment() {
     }
 
 }
+
 
 @Composable
 fun PokemonListScreen(
@@ -148,7 +151,6 @@ private fun PokemonImage(pokemon: PokedexListEntry) {
         painter = rememberCoilPainter(
             request = pokemon.imageUrl,
             previewPlaceholder = R.drawable.image_placeholder
-
         ),
         contentDescription = null,
         contentScale = ContentScale.Crop,
@@ -159,13 +161,27 @@ private fun PokemonImage(pokemon: PokedexListEntry) {
     )
 }
 
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 fun PreviewPokemonItem() {
     val pokemon = PokedexListEntry(
-        "joni",
+        "martin",
         "https://w7.pngwing.com/pngs/808/925/png-transparent-mareep-pokemon-crystal-pokemon-go-flaaffy-pokemon-go-chibi-pokemon-ampharos.png",
         1
     )
     PokemonListItem(pokemon = pokemon, NavController(LocalContext.current))
 }
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun PreviewPokemonListScreen() {
+    val navController: NavController = rememberNavController()
+    PokemonListScreen(navController = navController)
+}
+
+
+

@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -167,7 +168,7 @@ private fun Name(pokemon: Pokemon, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
+fun ProfileProperty(label: String, value: String) {
     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
         Divider()
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
@@ -177,11 +178,7 @@ fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
                 style = MaterialTheme.typography.caption,
             )
         }
-        val style = if (isLink) {
-            MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.primary)
-        } else {
-            MaterialTheme.typography.body1
-        }
+        val style = MaterialTheme.typography.body1
         Text(
             text = value,
             modifier = Modifier.height(24.dp),
@@ -189,3 +186,10 @@ fun ProfileProperty(label: String, value: String, isLink: Boolean = false) {
         )
     }
 }
+
+@Preview
+@Composable
+fun PreviewDetailScreen(){
+    PokemonDetailScreen("pikachu")
+}
+
